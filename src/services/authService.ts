@@ -23,3 +23,21 @@ export const signup = async (
 
   return {token, user: newUser};
 };
+
+export const login = async (email: string, password: string) => {
+  const user = await User.findOne({where: {email}});
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  const validateHashedPassword = await bcrypt.compare(password, user.password);
+  if (!validateHashedPassword) {
+    throw new Error("Invalid credentials");
+  }
+
+  const token = jwt.sign({userId: user.id}, JWT_SECRET, {
+    expiresIn: "7d",
+  });
+
+  return {token, user};
+};
