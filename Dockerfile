@@ -17,4 +17,5 @@ COPY . .
 EXPOSE 4000
 
 # Run the app
-CMD ["npm", "run", "start"]
+CMD ["node", "dist/index.js"]
+
