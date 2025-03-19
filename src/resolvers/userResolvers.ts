@@ -1,14 +1,16 @@
-import User from "../models/User";
-import {signup, login} from "../services/authService";
+// import User from '@/models/User';
+import { signup, login } from '@/services/authService';
+
+import { SignupArgs, LoginArgs } from '../types';
 
 const userResolvers = {
   Query: {},
-  Mutations: {
-    signup: async (_: any, {username, email, password}: any) => {
+  Mutation: {
+    signup: async (_: unknown, { username, email, password }: SignupArgs) => {
       return signup(username, email, password);
     },
 
-    login: async (_: any, {email, password}: any) => {
+    login: async (_: unknown, { email, password }: LoginArgs) => {
       return login(email, password);
     },
   },
