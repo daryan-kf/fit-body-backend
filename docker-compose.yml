@@ -1,11 +1,14 @@
 services:
   db:
     image: postgres:latest
-    container_name: fit-body-app
+    container_name: fit-body-app-db
+    restart: always
+    env_file:
+      - .env
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: fit_body_app
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
     ports:
       - '5432:5432'
     volumes:
@@ -13,14 +16,16 @@ services:
 
   backend:
     build: .
-    container_name: fit_body_app-backend
+    container_name: fit-body-app-backend
+    restart: always
+    env_file:
+      - .env
     environment:
-      DB_HOST: db
-      DB_PORT: 5432
-      DB_USER: postgres
-      DB_PASSWORD: postgres
-      DB_NAME: fit_body_app
-      # JWT_SECRET: your_jwt_secret_here
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
     ports:
       - '4000:4000'
     depends_on:
