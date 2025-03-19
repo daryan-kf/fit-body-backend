@@ -1,7 +1,7 @@
 // import User from '@/models/User';
 import { signup, login } from '@/services/authService';
 
-import { SignupArgs, LoginArgs } from '../types';
+import { SignupArgs, LoginArgs } from '@/types/resolvers';
 
 const userResolvers = {
   Query: {},
