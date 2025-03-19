@@ -7,7 +7,7 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: fit_body_app
     ports:
-      - "5432:5432"
+      - '5432:5432'
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
@@ -22,7 +22,7 @@ services:
       DB_NAME: fit_body_app
       # JWT_SECRET: your_jwt_secret_here
     ports:
-      - "4000:4000"
+      - '4000:4000'
     depends_on:
       - db
     volumes:
