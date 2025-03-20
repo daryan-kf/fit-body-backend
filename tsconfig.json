@@ -6,6 +6,7 @@
     "paths": {
       "@/*": ["/*"],  
       "@/types/*": ["types/*"], 
+      "@/config/*": ["config/*"], 
       "@/models/*": ["models/*"],  
       "@/resolvers/*": ["resolvers/*"],  
       "@/schema/*": ["schema/*"],  
