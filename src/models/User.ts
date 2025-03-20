@@ -1,5 +1,5 @@
-import { DataTypes, Model } from 'sequelize';
-import sequelize from '../config/database';
+import { Model, DataTypes } from 'sequelize';
+import sequelize from '@/config/database';
 
 class User extends Model {
   public id!: number;
@@ -37,8 +37,14 @@ User.init(
   },
   {
     sequelize,
+    modelName: 'User',
     tableName: 'users',
   }
 );
+
+sequelize
+  .sync()
+  .then(() => console.log('User table created successfully!'))
+  .catch((error) => console.error('Unable to create table:', error));
 
 export default User;
