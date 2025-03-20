@@ -1,16 +1,36 @@
 // import User from '@/models/User';
 import { signup, login } from '@/services/authService';
 
-import { SignupArgs, LoginArgs } from '@/types/resolvers';
+import User from '@/models/User';
+import {
+  UserContext,
+  ResolverParent,
+  ResolverSignupArgs,
+  ResolverLoginArgs,
+} from '@/types/user';
 
 const userResolvers = {
-  Query: {},
+  Query: {
+    me: async (_: ResolverParent, __: ResolverParent, context: UserContext) => {
+      console.log(context);
+      if (!context.user) {
+        throw new Error('Not authenticated');
+      }
+      return User.findByPk(context.user.userId);
+    },
+  },
   Mutation: {
-    signup: async (_: unknown, { username, email, password }: SignupArgs) => {
+    signup: async (
+      _: ResolverParent,
+      { username, email, password }: ResolverSignupArgs
+    ) => {
       return signup(username, email, password);
     },
 
-    login: async (_: unknown, { email, password }: LoginArgs) => {
+    login: async (
+      _: ResolverParent,
+      { email, password }: ResolverLoginArgs
+    ) => {
       return login(email, password);
     },
   },
