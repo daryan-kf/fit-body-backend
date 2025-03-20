@@ -8,8 +8,13 @@ const sequelize = new Sequelize(
     host: process.env.DB_HOST!,
     dialect: 'postgres',
     port: Number(process.env.DB_PORT),
-    logging: false,
+    logging: console.log,
   }
 );
+
+sequelize
+  .authenticate()
+  .then(() => console.log('Database connected successfully!'))
+  .catch((error) => console.error('Unable to connect to the database:', error));
 
 export default sequelize;
